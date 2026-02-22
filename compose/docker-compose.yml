@@ -1,0 +1,51 @@
+services:
+
+  rabbitmq:
+    image: "rabbitmq:3.8.6-management"
+    container_name: rabbitmq-assinaturas
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+#  localstack:
+#    container_name: localstack
+#    image: localstack/localstack
+#    ports:
+#      - 4566:4566
+#      - 5439:4566
+#    environment:
+#      - SERVICES=redshift,s3,iam,secretsmanager
+#      - DEBUG=1
+#      - DOCKER_HOST=unix:///var/run/docker.sock
+#      - PERSISTENCE=${PERSISTENCE- }
+#      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+#      - DOCKER_HOST=${DOCKER_LOCATION}
+#      - AWS_ACCESS_KEY_ID=teste
+#      - AWS_SECRET_ACCESS_KEY=teste
+#      - AWS_DEFAULT_REGION=us-east-1
+#      - AWS_DEFAULT_OUTPUT=json
+#    volumes:
+#      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+#      - "./notification.json:/opt/code/localstack/notification.json"
+#      - "./init-aws.sh:/docker-entrypoint-initaws.d/init-aws.sh"
+#      - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: assinaturas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+
+
+#networks:
+#  app-network:
+#    driver: bridge
+#
+#volumes:
+#  mongodb-data:
+##  redshift_data:

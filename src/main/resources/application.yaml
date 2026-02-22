@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: assinaturas
+
+  quartz:
+    properties:
+      org:
+        quartz:
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+    jdbc:
+      initialize-schema: never
+    job-store-type: jdbc
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:mysecretpassword}
+    driver-class-name: org.postgresql.Driver
