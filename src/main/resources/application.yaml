@@ -22,7 +22,7 @@ spring:
         format_sql: true
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
 
   datasource:
