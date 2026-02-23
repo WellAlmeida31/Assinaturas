@@ -7,29 +7,26 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-#  localstack:
-#    container_name: localstack
-#    image: localstack/localstack
-#    ports:
-#      - 4566:4566
-#      - 5439:4566
-#    environment:
-#      - SERVICES=redshift,s3,iam,secretsmanager
-#      - DEBUG=1
-#      - DOCKER_HOST=unix:///var/run/docker.sock
-#      - PERSISTENCE=${PERSISTENCE- }
-#      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
-#      - DOCKER_HOST=${DOCKER_LOCATION}
-#      - AWS_ACCESS_KEY_ID=teste
-#      - AWS_SECRET_ACCESS_KEY=teste
-#      - AWS_DEFAULT_REGION=us-east-1
-#      - AWS_DEFAULT_OUTPUT=json
-#    volumes:
-#      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-#      - "./notification.json:/opt/code/localstack/notification.json"
-#      - "./init-aws.sh:/docker-entrypoint-initaws.d/init-aws.sh"
-#      - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
-#      - "/var/run/docker.sock:/var/run/docker.sock"
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:latest
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=${SERVICES- }
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=4566
+      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+      - DOCKER_HOST=${DOCKER_LOCATION}
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_OUTPUT=json
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/var/lib/localstack"
+      - "./notification.json:/opt/code/localstack/notification.json"
+      - "./init-aws.sh:/docker-entrypoint-initaws.d/init-aws.sh"
 
   db:
     image: postgres:latest
