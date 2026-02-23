@@ -20,6 +20,14 @@ public interface UserRepository extends UserProvider, JpaRepository<UserDbo, Lon
         return this.save(userDbo);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    default Optional<UserDbo> findUserByCpf(String cpf){
+        return findByCpf(cpf);
+    }
+
+    Optional<UserDbo> findByCpf(String cpf);
+
     @Override
     @Transactional(readOnly = true)
     default UserDbo findUserByIdentifier(String identifier) {

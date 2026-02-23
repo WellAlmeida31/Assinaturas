@@ -1,5 +1,6 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
+import com.wellsoft.globo.assinaturas.domain.exception.ExistentUserException;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.UserMapper;
@@ -19,6 +20,10 @@ public class CreateUserUseCase {
     private final UserMapper userMapper;
 
     public UserCreateResponseDto createUser(UserRequestDto userRequestDto){
+        var existUser = userProvider.findUserByCpf(userRequestDto.cpf()).isPresent();
+        if(existUser){
+            throw new ExistentUserException("User already exist");
+        }
         var asaasUser = userService.createAsaasUser(userRequestDto);
         var user = userProvider.saveUser(userMapper.toUserDbo(asaasUser));
         return userMapper.toUserCreateDto(user);

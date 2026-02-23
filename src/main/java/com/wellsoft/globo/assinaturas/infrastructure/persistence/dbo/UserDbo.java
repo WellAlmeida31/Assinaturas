@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "app_user",
         indexes = {
-                @Index(name = "idx_user_identifier", columnList = "user_identifier", unique = true)
+                @Index(name = "idx_user_identifier", columnList = "user_identifier", unique = true),
+                @Index(name = "idx_cpf", columnList = "cpf", unique = true)
         })
 public class UserDbo {
 

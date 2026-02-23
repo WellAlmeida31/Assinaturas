@@ -29,7 +29,6 @@ public interface UserController {
     })
     ResponseEntity<UserCreateResponseDto> createUser(@RequestBody @Valid UserRequestDto dto, UriComponentsBuilder uriBuilder);
 
-
     @GetMapping(Paths.USER.FIND)
     @Operation(
             summary = "Find by identifier - Consulta um usuário",

@@ -1,2 +1,2 @@
-awslocal secretsmanager create-secret --name sandbox/asaas/access_token --secret-string '{"token":"$aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmY1Y2U3M2I4LWRmNzQtNGJhMi05ODNjLTQ3NjU1MmE3YjI4Yjo6JGFhY2hfNWRiYWZkYzctZTRiNy00NWE5LWE4YjktOWM0YWY0YjRjZGUw"}'
+awslocal secretsmanager create-secret --name sandbox/asaas/access_token --secret-string '{"token":"token de sanbox asaas"}'
 
