@@ -23,6 +23,7 @@ public class AsaasFeignInterceptor implements RequestInterceptor {
                 String accessToken = accessTokenProvider.getToken();
                 if (accessToken != null) {
                     requestTemplate.header("access_token", accessToken);
+                    log.info("Applied Access Token Asaas");
                 }
             }
         } catch (Exception ignored) {}

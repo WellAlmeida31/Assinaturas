@@ -16,6 +16,7 @@ public class AsaasClientResponse {
     private String postalCode;
     private String cpfCnpj;
     private String personType;
+    private String externalReference;
     private boolean deleted;
     private boolean notificationDisabled;
     private boolean canDelete;

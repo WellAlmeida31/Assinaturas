@@ -2,6 +2,10 @@ package com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -67,6 +71,10 @@ public class UserDbo {
 
     @Column(name = "client_customer_id")
     private String clientCustomerId;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "credit_card_id", referencedColumnName = "id")

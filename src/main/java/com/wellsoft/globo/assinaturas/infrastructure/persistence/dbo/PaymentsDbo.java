@@ -51,7 +51,6 @@ public class PaymentsDbo {
     private LocalDateTime createdAt;
 
     @Column(name = "confirmed_date")
-    @CreationTimestamp
     private LocalDateTime confirmedDate;
 
     @Column(name = "status")
