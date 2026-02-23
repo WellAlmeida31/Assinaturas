@@ -1,8 +1,10 @@
 package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.adapter;
 
 import com.wellsoft.globo.assinaturas.application.usecase.CreateUserUseCase;
+import com.wellsoft.globo.assinaturas.application.usecase.FindUserAndSignaturesAndCreditCard;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.port.UserController;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.UserRequestDto;
+import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserCreateResponseDto;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserResponseDto;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.path.Paths;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +19,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserControllerAdapter implements UserController {
 
     private final CreateUserUseCase createUserUseCase;
+    private final FindUserAndSignaturesAndCreditCard findUser;
 
     @Override
-    public ResponseEntity<UserResponseDto> createUser(UserRequestDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<UserCreateResponseDto> createUser(UserRequestDto dto, UriComponentsBuilder uriBuilder) {
         log.info("Start create user");
         var userDto = createUserUseCase.createUser(dto);
         return ResponseEntity
@@ -28,5 +31,11 @@ public class UserControllerAdapter implements UserController {
                         .buildAndExpand(userDto.userIdentifier())
                         .toUri())
                 .body(userDto);
+    }
+
+    @Override
+    public ResponseEntity<UserResponseDto> findUserByIdentifier(String identifier) {
+        log.info("Start find user by Identifier");
+        return ResponseEntity.ok(findUser.findByIdentifier(identifier));
     }
 }

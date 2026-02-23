@@ -12,4 +12,10 @@ public interface Paths {
         String FIND = "/find" + IDENTIFIER;
     }
 
+    interface Placeholder {
+        String IDENTIFIER = "identifier";
+        String CPF = "cpf";
+        String STATUS = "status";
+    }
+
 }
