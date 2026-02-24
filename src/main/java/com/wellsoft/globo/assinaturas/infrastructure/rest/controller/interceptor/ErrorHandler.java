@@ -1,5 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.interceptor;
 
+import com.wellsoft.globo.assinaturas.domain.exception.AlreadySubscription;
 import com.wellsoft.globo.assinaturas.domain.exception.CreateClientException;
 import com.wellsoft.globo.assinaturas.domain.exception.ExistentUserException;
 import com.wellsoft.globo.assinaturas.domain.exception.PaymentFailedException;
@@ -49,6 +50,13 @@ public class ErrorHandler {
 
     @ExceptionHandler(PaymentFailedException.class)
     public ResponseEntity<ErrorMessage> paymentFailedException(PaymentFailedException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorMessage(ex.getMessage(), ex.getLocalizedMessage()));
+    }
+
+    @ExceptionHandler(AlreadySubscription.class)
+    public ResponseEntity<ErrorMessage> alreadySubscription(AlreadySubscription ex) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorMessage(ex.getMessage(), ex.getLocalizedMessage()));

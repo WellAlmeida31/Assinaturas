@@ -47,3 +47,22 @@ feign:
 
 access:
   secret: sandbox/asaas/access_token
+
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+com:
+  wellsoft:
+    amqp:
+      createRecurrence:
+        queueName: assinaturas.createRecurrence
+        exchangeName: assinaturas.createRecurrence.exchange
+        concurrentConsumer: 3
+        maxConcurrentConsumer: 3
+        maxAttempts: 3
+        prefetch: 5
+

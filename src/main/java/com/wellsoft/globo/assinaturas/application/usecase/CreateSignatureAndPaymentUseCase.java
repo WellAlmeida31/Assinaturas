@@ -1,9 +1,12 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
+import com.wellsoft.globo.assinaturas.application.dto.CreateRecurrenceDto;
+import com.wellsoft.globo.assinaturas.domain.exception.AlreadySubscription;
 import com.wellsoft.globo.assinaturas.domain.exception.PaymentFailedException;
 import com.wellsoft.globo.assinaturas.domain.provider.PlanValueProvider;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.CreditCardService;
+import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
 import com.wellsoft.globo.assinaturas.domain.service.SignatureService;
 import com.wellsoft.globo.assinaturas.infrastructure.client.request.CreditCard;
 import com.wellsoft.globo.assinaturas.infrastructure.client.request.CreditCardHolderInfo;
@@ -23,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static java.util.Objects.nonNull;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -31,11 +36,15 @@ public class CreateSignatureAndPaymentUseCase {
     private final SignatureService signatureService;
     private final PlanValueProvider planValueProvider;
     private final CreditCardService creditCardService;
+    private final RecurrenceService recurrenceService;
     private final UserProvider userProvider;
 
     @Transactional
     public SignatureResponseDto createAndPayment(SignatureRequestDto dto){
         var user = userProvider.findUserByIdentifier(dto.identifier());
+        if(nonNull(user.getSignatureDbo())){
+            throw new AlreadySubscription("The user already has a subscription.");
+        }
         var signature = signatureService.createInitialSignature(dto);
         user.setSignatureDbo(signature);
 
@@ -49,6 +58,14 @@ public class CreateSignatureAndPaymentUseCase {
         activateSubscription(payment, signature);
 
         var creditCard = registerCreditCard(dto, tokenizedCard, user);
+
+        recurrenceService.sendCreatePaymentRecurrence(CreateRecurrenceDto.builder()
+                .userIdentifier(user.getUserIdentifier())
+                .billingType(BillingType.CREDIT_CARD)
+                .value(planValue)
+                .dueDate(LocalDate.now().plusMonths(1))
+                .recurrenceDate(LocalDateTime.now().plusMonths(1))
+                .build());
 
         return SignatureResponseDto.builder()
                 .identifier(user.getUserIdentifier())
