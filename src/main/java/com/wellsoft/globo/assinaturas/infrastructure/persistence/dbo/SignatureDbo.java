@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,5 +51,13 @@ public class SignatureDbo {
 
     @OneToMany(mappedBy = "signatureDbo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PaymentsDbo> payments = new ArrayList<>();
+
+    public void addPayment(PaymentsDbo payment) {
+        if (this.payments == null) {
+            this.payments = new ArrayList<>();
+        }
+        this.payments.add(payment);
+        payment.setSignatureDbo(this);
+    }
 
 }

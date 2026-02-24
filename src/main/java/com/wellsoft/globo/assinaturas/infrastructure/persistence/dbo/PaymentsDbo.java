@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -40,7 +41,7 @@ public class PaymentsDbo {
     private BigDecimal value;
 
     @Column(name = "due_date")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @EqualsAndHashCode.Include
     @Column(name = "payment_id", nullable = false)
@@ -51,7 +52,7 @@ public class PaymentsDbo {
     private LocalDateTime createdAt;
 
     @Column(name = "confirmed_date")
-    private LocalDateTime confirmedDate;
+    private LocalDate confirmedDate;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -66,8 +67,9 @@ public class PaymentsDbo {
     @Column(name = "transaction_receipt_url")
     private String transactionReceiptUrl;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "signature_id", nullable = false)
+    @JoinColumn(name = "signature_id")
     private SignatureDbo signatureDbo;
 
 }

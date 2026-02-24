@@ -12,6 +12,12 @@ public interface Paths {
         String FIND = "/find" + IDENTIFIER;
     }
 
+    interface SIGNATURE {
+        String CREATE = "/signature/create";
+        String IDENTIFIER = "/{identifier}";
+        String FIND = "/signature/user" + IDENTIFIER;
+    }
+
     interface Placeholder {
         String IDENTIFIER = "identifier";
         String CPF = "cpf";

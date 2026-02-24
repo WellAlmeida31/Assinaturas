@@ -76,10 +76,12 @@ public class UserDbo {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "credit_card_id", referencedColumnName = "id")
     private CreditCardDbo creditCardDbo;
 
+    @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "signature_id", referencedColumnName = "id")
     private SignatureDbo signatureDbo;

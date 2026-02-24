@@ -26,6 +26,7 @@ public class CreateUserUseCase {
         }
         var asaasUser = userService.createAsaasUser(userRequestDto);
         var user = userProvider.saveUser(userMapper.toUserDbo(asaasUser));
+        log.info("Created User with Identifier: {}", user.getUserIdentifier());
         return userMapper.toUserCreateDto(user);
     }
 }

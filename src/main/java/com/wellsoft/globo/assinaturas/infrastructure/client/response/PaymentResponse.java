@@ -17,10 +17,10 @@ public class PaymentResponse {
     public BigDecimal netValue;
     public Object originalValue;
     public BillingType billingType;
-    public String confirmedDate;
+    public LocalDate confirmedDate;
     public CreditCardResponse creditCard;
     public PaymentStatus status;
-    public String dueDate;
+    public LocalDate dueDate;
     public String originalDueDate;
     public Object paymentDate;
     public String clientPaymentDate;

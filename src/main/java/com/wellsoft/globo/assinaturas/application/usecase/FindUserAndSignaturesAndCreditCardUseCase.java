@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class FindUserAndSignaturesAndCreditCard {
+public class FindUserAndSignaturesAndCreditCardUseCase {
 
     private final UserProvider userProvider;
     private final UserMapper userMapper;

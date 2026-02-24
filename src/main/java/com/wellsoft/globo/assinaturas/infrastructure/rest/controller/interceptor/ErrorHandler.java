@@ -2,6 +2,7 @@ package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.intercepto
 
 import com.wellsoft.globo.assinaturas.domain.exception.CreateClientException;
 import com.wellsoft.globo.assinaturas.domain.exception.ExistentUserException;
+import com.wellsoft.globo.assinaturas.domain.exception.PaymentFailedException;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.ErrorMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -39,11 +40,17 @@ public class ErrorHandler {
                 .body(new ErrorMessage(ex.getMessage(), ex.getLocalizedMessage()));
     }
 
-
     @ExceptionHandler(CreateClientException.class)
     public ResponseEntity<ErrorMessage> createClientException(CreateClientException ex) {
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(new ErrorMessage(ex.getMessage(), ex.getLocalizedMessage()));
+    }
+
+    @ExceptionHandler(PaymentFailedException.class)
+    public ResponseEntity<ErrorMessage> paymentFailedException(PaymentFailedException ex) {
+        return ResponseEntity
+                .badRequest()
                 .body(new ErrorMessage(ex.getMessage(), ex.getLocalizedMessage()));
     }
 }

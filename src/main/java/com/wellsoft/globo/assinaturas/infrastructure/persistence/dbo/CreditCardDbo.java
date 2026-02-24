@@ -56,12 +56,15 @@ public class CreditCardDbo {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Setter
     @Column(name = "credit_card_token")
     private String creditCardToken;
 
+    @Setter
     @Column(name = "credit_card_brand")
     private String creditCardBrand;
 
+    @Setter
     @OneToOne(mappedBy = "creditCardDbo", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserDbo userDbo;
 }

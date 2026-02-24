@@ -1,7 +1,7 @@
 package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.adapter;
 
 import com.wellsoft.globo.assinaturas.application.usecase.CreateUserUseCase;
-import com.wellsoft.globo.assinaturas.application.usecase.FindUserAndSignaturesAndCreditCard;
+import com.wellsoft.globo.assinaturas.application.usecase.FindUserAndSignaturesAndCreditCardUseCase;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.port.UserController;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.UserRequestDto;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserCreateResponseDto;
@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserControllerAdapter implements UserController {
 
     private final CreateUserUseCase createUserUseCase;
-    private final FindUserAndSignaturesAndCreditCard findUser;
+    private final FindUserAndSignaturesAndCreditCardUseCase findUser;
 
     @Override
     public ResponseEntity<UserCreateResponseDto> createUser(UserRequestDto dto, UriComponentsBuilder uriBuilder) {
