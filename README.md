@@ -84,12 +84,16 @@ Permite criar usuários via API REST para vincular assinaturas.
 
 Ao criar uma assinatura, é criado um pagamento e tokenizado o cartão de crédito para recorrência, um email e uma mensagem SMS são enviados para os respectivos dados cadastrados informando se houve sucesso no pagamento, o campo transactionReceiptUrl contém a URl do comprovante de pagamento. Um job Quartz é agendado para o dia de vencimento exato para tentativa de renovação.
 
+![CRIAR-ASSINATURA.png](CRIAR-ASSINATURA.png)
+
 -------
 
 📅 Renovação Automática
 
 Usa Quartz Scheduler persistente para garantir que os pagamentos ocorrem mesmo após restart da aplicação.
 É recuperado os dados de pagamento através do token do cartão de credito, feito pagamento e reagendado nova cobrança.
+
+![RENOVAR-ASSINATURA.drawio.png](RENOVAR-ASSINATURA.drawio.png)
 
 -------
 
