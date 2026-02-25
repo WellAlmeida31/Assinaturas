@@ -58,9 +58,6 @@ public class PaymentsDbo {
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
-    @Column(name = "retry_payment")
-    private Integer retryPayment;
-
     @Column(name = "deleted")
     private Boolean deleted;
 

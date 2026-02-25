@@ -46,6 +46,9 @@ public class SignatureDbo {
     @Enumerated(EnumType.STRING)
     private SignatureStatus status;
 
+    @Column(name = "retry_payment")
+    private Integer retryPayment;
+
     @OneToOne(mappedBy = "signatureDbo", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserDbo userDbo;
 

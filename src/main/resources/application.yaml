@@ -3,14 +3,12 @@ spring:
     name: assinaturas
 
   quartz:
+    auto-startup: true
     properties:
-      org:
-        quartz:
-          jobStore:
-            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
-            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
-            tablePrefix: QRTZ_
-            isClustered: true
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+      org.quartz.jobStore.tablePrefix: QRTZ_
+      org.quartz.jobStore.isClustered: false
+      org.quartz.jobStore.useProperties: true
     jdbc:
       initialize-schema: never
     job-store-type: jdbc
@@ -18,7 +16,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: com.wellsoft.globo.assinaturas.infrastructure.config.CustomPostgreSQLDialect
         format_sql: true
     open-in-view: false
     hibernate:
@@ -26,7 +24,7 @@ spring:
     show-sql: true
 
   datasource:
-    jdbc-url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/
+    jdbc-url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/postgres?stringtype=unspecified
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:mysecretpassword}
     driver-class-name: org.postgresql.Driver
@@ -65,4 +63,9 @@ com:
         maxConcurrentConsumer: 3
         maxAttempts: 3
         prefetch: 5
+
+#logging:
+#  level:
+#    org:
+#      quartz: DEBUG
 

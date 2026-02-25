@@ -29,7 +29,7 @@ services:
       - "./init-aws.sh:/docker-entrypoint-initaws.d/init-aws.sh"
 
   db:
-    image: postgres:latest
+    image: postgres:16-alpine
     restart: always
     environment:
       POSTGRES_DB: assinaturas

@@ -63,8 +63,8 @@ public class CreateSignatureAndPaymentUseCase {
                 .userIdentifier(user.getUserIdentifier())
                 .billingType(BillingType.CREDIT_CARD)
                 .value(planValue)
-                .dueDate(LocalDate.now().plusMonths(1))
-                .recurrenceDate(LocalDateTime.now().plusMonths(1))
+                .recurrenceDate(LocalDateTime.now().plusMinutes(1))
+//                .recurrenceDate(LocalDateTime.now().plusMonths(1))
                 .build());
 
         return SignatureResponseDto.builder()

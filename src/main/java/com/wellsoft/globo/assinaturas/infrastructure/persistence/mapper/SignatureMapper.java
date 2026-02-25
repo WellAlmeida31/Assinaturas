@@ -11,6 +11,7 @@ public interface SignatureMapper {
 
     @Mapping(target = "userIdentifier", source = "dto.identifier")
     @Mapping(target = "plan", source = "dto.plan")
+    @Mapping(target = "retryPayment", constant = "0")
     @Mapping(target = "status", expression = "java(generateInitialStatus())")
     SignatureDbo toSignatureDbo(SignatureRequestDto dto);
 
