@@ -1,7 +1,7 @@
 package com.wellsoft.globo.assinaturas.infrastructure.messaging.rabbitmq.producer;
 
-import com.wellsoft.globo.assinaturas.application.dto.CreateRecurrenceDto;
-import com.wellsoft.globo.assinaturas.application.port.output.RecurrenceOutput;
+import com.wellsoft.globo.assinaturas.application.dto.CancelSignatureDto;
+import com.wellsoft.globo.assinaturas.application.port.output.CancelSignatureOutput;
 import com.wellsoft.globo.assinaturas.infrastructure.config.AbstractRabbitMQConfiguration;
 import com.wellsoft.globo.assinaturas.infrastructure.config.ListenerMQConfiguration;
 import jakarta.annotation.PostConstruct;
@@ -10,24 +10,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RecurrenceProducer implements RecurrenceOutput {
+public class CancelSignatureProducer implements CancelSignatureOutput {
 
     private final RabbitTemplate rabbitTemplate;
+    private AbstractRabbitMQConfiguration.MessageConfiguration configurationCancel;
     private final ListenerMQConfiguration.MessageProperties messageProperties;
-    private AbstractRabbitMQConfiguration.MessageConfiguration configurationCreate;
 
     @PostConstruct
     private void postConstruct() {
-        configurationCreate = messageProperties.getCreateRecurrence();
+        configurationCancel = messageProperties.getCancelSignature();
     }
 
     @Override
-    public void createRecurrence(CreateRecurrenceDto createRecurrenceDto) {
-        log.info("Send to created recurrence {}", createRecurrenceDto);
-        rabbitTemplate.convertAndSend(configurationCreate.getExchangeName(), configurationCreate.getQueueName(), createRecurrenceDto);
+    public void sendCancelPaymentRecurrenceAndSignature(CancelSignatureDto cancelSignatureDto) {
+        log.info("Send to cancel signature {}", cancelSignatureDto.getUserIdentifier());
+        rabbitTemplate.convertAndSend(configurationCancel.getExchangeName(), configurationCancel.getQueueName(), cancelSignatureDto);
     }
-
 }

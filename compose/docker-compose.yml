@@ -37,12 +37,3 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
     ports:
       - "5432:5432"
-
-
-#networks:
-#  app-network:
-#    driver: bridge
-#
-#volumes:
-#  mongodb-data:
-##  redshift_data:

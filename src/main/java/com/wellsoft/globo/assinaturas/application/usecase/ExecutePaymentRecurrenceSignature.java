@@ -50,8 +50,6 @@ public class ExecutePaymentRecurrenceSignature {
 
     private void createNewPaymentRecurrence(BigDecimal value, UserDbo user) {
         log.info("Create New Payment Recurrence");
-        var actualDate = LocalDateTime.now();
-        //todo criar metodo para deletar o job
 
         recurrenceService.sendCreatePaymentRecurrence(CreateRecurrenceDto.builder()
                 .userIdentifier(user.getUserIdentifier())

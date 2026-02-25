@@ -16,6 +16,7 @@ public interface Paths {
         String CREATE = "/signature/create";
         String IDENTIFIER = "/{identifier}";
         String FIND = "/signature/user" + IDENTIFIER;
+        String DELETE = "/signature/delete" + IDENTIFIER;
     }
 
     interface Placeholder {

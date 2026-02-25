@@ -13,10 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -32,5 +29,15 @@ public interface SignatureController {
             @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) })
     })
     ResponseEntity<SignatureResponseDto> createSignatureToUser(@RequestBody @Valid SignatureRequestDto dto, UriComponentsBuilder uriBuilder);
+
+    @DeleteMapping(Paths.SIGNATURE.DELETE)
+    @Operation(
+            summary = "Delete - Cancela uma Assinatura",
+            description = "Cancelamento de uma assinatura para um usuário criado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = UserCreateResponseDto.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) })
+    })
+    ResponseEntity<Void> cancelSignatureToUser(@PathVariable(Paths.Placeholder.IDENTIFIER) String identifier);
 
 }

@@ -18,6 +18,7 @@ import tools.jackson.databind.json.JsonMapper;
 public class ListenerMQConfiguration extends AbstractRabbitMQConfiguration {
 
     public static final String CREATE_RECURRENCE = "createRecurrence";
+    public static final String CANCEL_SIGNATURE = "cancelSignature";
 
 
     private final JsonMapper jsonMapper;
@@ -34,13 +35,20 @@ public class ListenerMQConfiguration extends AbstractRabbitMQConfiguration {
     @Data
     public static class MessageProperties {
         private MessageConfiguration createRecurrence;
+        private MessageConfiguration cancelSignature;
 
     }
 
     @Bean(CREATE_RECURRENCE)
-    SimpleRabbitListenerContainerFactory containerFactoryOperatorCampaign(final ConnectionFactory connectionFactory,
+    SimpleRabbitListenerContainerFactory containerFactoryCreateRecurrence(final ConnectionFactory connectionFactory,
                                                                   final ListenerMQConfiguration rabbitMQConfiguration) {
         return buildFactory(assinaturasProperties.getCreateRecurrence(), connectionFactory, rabbitMQConfiguration);
+    }
+
+    @Bean(CANCEL_SIGNATURE)
+    SimpleRabbitListenerContainerFactory containerFactoryCancelSignature(final ConnectionFactory connectionFactory,
+                                                                          final ListenerMQConfiguration rabbitMQConfiguration) {
+        return buildFactory(assinaturasProperties.getCancelSignature(), connectionFactory, rabbitMQConfiguration);
     }
 
 
