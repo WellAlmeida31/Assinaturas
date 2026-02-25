@@ -1,8 +1,6 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
 import com.wellsoft.globo.assinaturas.application.dto.CancelSignatureDto;
-import com.wellsoft.globo.assinaturas.domain.exception.AlreadySubscription;
-import com.wellsoft.globo.assinaturas.domain.exception.ExistentUserException;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
 import jakarta.persistence.EntityNotFoundException;
