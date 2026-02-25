@@ -90,6 +90,7 @@ Ao criar uma assinatura, é criado um pagamento e tokenizado o cartão de crédi
 
 Usa Quartz Scheduler persistente para garantir que os pagamentos ocorrem mesmo após restart da aplicação.
 É recuperado os dados de pagamento através do token do cartão de credito, feito pagamento e reagendado nova cobrança.
+
 -------
 
 ⚠️ Controle de Tentativas
