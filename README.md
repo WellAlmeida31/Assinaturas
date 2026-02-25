@@ -133,7 +133,9 @@ O projeto utiliza o Quartz com persistência no banco (PostgreSQL), o que garant
 
 ### Configuração AWS Localstack
 
-- Troque 'token de sandbox asaas' pelo seu token ASAAS (Homologação), via Secrets Manager
+- Os valores dos planos BASICO, PREMIUM e FAMILIA estão no Secrets Maneger.
+
+- Troque 'token de sandbox asaas' pelo seu token ASAAS (Homologação), via Secrets Manager.
 
 - Configuração local do Secrets Manager com localstack no arquivo init-aws.sh dentro da pasta compose: 
 
