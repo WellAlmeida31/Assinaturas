@@ -82,7 +82,7 @@ Permite criar usuários via API REST para vincular assinaturas.
 
 🔁 Criação de Assinaturas
 
-Ao criar uma assinatura, é criado um pagamento e tokenizado o cartão de crédito para recorrência, um job Quartz é agendado para o dia de vencimento exato para tentativa de renovação.
+Ao criar uma assinatura, é criado um pagamento e tokenizado o cartão de crédito para recorrência, um email e uma mensagem SMS são enviados para os respectivos dados cadastrados informando se houve sucesso no pagamento, um job Quartz é agendado para o dia de vencimento exato para tentativa de renovação.
 
 -------
 
@@ -97,6 +97,7 @@ Usa Quartz Scheduler persistente para garantir que os pagamentos ocorrem mesmo a
 Se a cobrança falhar:
 
 - O sistema registra a tentativa
+- Cada tentativa é agendada pro dia seguinte
 - Depois de 3 tentativas sem sucesso, a assinatura é suspensa
 
 -------
