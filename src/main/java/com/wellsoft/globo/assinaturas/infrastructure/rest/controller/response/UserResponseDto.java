@@ -3,9 +3,11 @@ package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.Plan;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.SignatureStatus;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserResponseDto(
         Long id,
