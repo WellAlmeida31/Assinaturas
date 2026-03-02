@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v3/creditCard/tokenizeCreditCard",
+    "headers": {
+      "access_token": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "creditCardNumber": "**** **** **** 1234",
+      "creditCardBrand": "VISA",
+      "creditCardToken": "tok_{{randomValue length=20 type='ALPHANUMERIC'}}"
+    }
+  }
+}

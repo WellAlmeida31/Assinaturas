@@ -143,6 +143,20 @@ O projeto utiliza o Quartz com persistência no banco (PostgreSQL), o que garant
 awslocal secretsmanager create-secret --name sandbox/asaas/access_token --secret-string '{"token":"token de sandbox asaas", "basico":"19.90", "premium":"39.90", "familia":"59.90"}'
 
 ````
+### Caso não tenha um token ASAAS use Wiremock
+
+Caso não possua um token ASAAS é possivel testar a API usando o Wiremock configurado.
+
+- Execute o docker compose (O Wiremock é configurado automaticaente)
+
+Use a URL do Wiremock no application.yaml
+Descomente a URL:
+
+````yaml
+asaas:
+  server-url: http://localhost:8089
+````
+
 
 ### Configurações do Quartz
 

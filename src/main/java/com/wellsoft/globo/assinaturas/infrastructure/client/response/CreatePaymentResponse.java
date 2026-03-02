@@ -4,6 +4,7 @@ import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.PaymentStat
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class CreatePaymentResponse {
@@ -14,19 +15,19 @@ public class CreatePaymentResponse {
     public BigDecimal value;
     public BigDecimal netValue;
     public String billingType;
-    public Object confirmedDate;
+    public LocalDate confirmedDate;
     public Object creditCard;
     public PaymentStatus status;
     public String dueDate;
     public String originalDueDate;
-    public Object paymentDate;
+    public LocalDate paymentDate;
     public String invoiceUrl;
     public String invoiceNumber;
-    public Object externalReference;
+    public String externalReference;
     public boolean deleted;
     public boolean anticipated;
     public boolean anticipable;
-    public Object creditDate;
-    public Object estimatedCreditDate;
+    public LocalDate creditDate;
+    public LocalDate estimatedCreditDate;
     public boolean postalService;
 }

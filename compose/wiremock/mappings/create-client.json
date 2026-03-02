@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v3/customers",
+    "headers": {
+      "access_token": {
+        "matches": ".+"
+      }
+    },
+    "bodyPatterns": [
+      { "matchesJsonPath": "$.name" },
+      { "matchesJsonPath": "$.cpfCnpj" }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "object": "customer",
+      "id": "cus_{{randomValue length=12 type='ALPHANUMERIC'}}",
+      "dateCreated": "{{now format='yyyy-MM-dd'}}",
+      "name": "{{jsonPath request.body '$.name'}}",
+      "email": "{{jsonPath request.body '$.email'}}",
+      "mobilePhone": "{{jsonPath request.body '$.mobilePhone'}}",
+      "address": "Rua Exemplo",
+      "addressNumber": "{{jsonPath request.body '$.addressNumber'}}",
+      "province": "Centro",
+      "postalCode": "{{jsonPath request.body '$.postalCode'}}",
+      "cpfCnpj": "{{jsonPath request.body '$.cpfCnpj'}}",
+      "personType": "FISICA",
+      "externalReference": "{{jsonPath request.body '$.externalReference'}}",
+      "deleted": false,
+      "notificationDisabled": false,
+      "canDelete": true,
+      "canEdit": true,
+      "city": 123456,
+      "cityName": "Belem",
+      "state": "PA",
+      "country": "Brasil"
+    }
+  }
+}

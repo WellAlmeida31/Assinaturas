@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPattern": "/v3/payments/.*/payWithCreditCard",
+    "headers": {
+      "access_token": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "object": "payment",
+      "id": "{{request.pathSegments.[3]}}",
+      "dateCreated": "{{now format='yyyy-MM-dd'}}",
+      "customer": "cus_mocked",
+      "value": 100.00,
+      "netValue": 97.00,
+      "originalValue": 100.00,
+      "billingType": "CREDIT_CARD",
+      "confirmedDate": "{{now format='yyyy-MM-dd'}}",
+      "status": "CONFIRMED",
+      "dueDate": "{{now format='yyyy-MM-dd'}}",
+      "paymentDate": "{{now format='yyyy-MM-dd'}}",
+      "invoiceUrl": "https://sandbox.asaas.com/invoice/123",
+      "invoiceNumber": "000123",
+      "externalReference": "mock-ref",
+      "deleted": false,
+      "anticipated": false,
+      "anticipable": false,
+      "creditDate": "{{now format='yyyy-MM-dd'}}",
+      "estimatedCreditDate": "{{now format='yyyy-MM-dd'}}",
+      "transactionReceiptUrl": "https://sandbox.asaas.com/receipt/123"
+    }
+  }
+}

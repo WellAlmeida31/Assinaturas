@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v3/payments",
+    "headers": {
+      "access_token": {
+        "matches": ".+"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "object": "payment",
+      "id": "pay_{{randomValue length=14 type='ALPHANUMERIC'}}",
+      "dateCreated": "{{now format='yyyy-MM-dd'}}",
+      "customer": "{{jsonPath request.body '$.customer'}}",
+      "value": "{{jsonPath request.body '$.value'}}",
+      "netValue": "{{jsonPath request.body '$.value'}}",
+      "billingType": "{{jsonPath request.body '$.billingType'}}",
+      "confirmedDate": null,
+      "status": "PENDING",
+      "dueDate": "{{jsonPath request.body '$.dueDate'}}",
+      "originalDueDate": "{{jsonPath request.body '$.dueDate'}}",
+      "deleted": false,
+      "anticipated": false,
+      "anticipable": true,
+      "postalService": false
+    }
+  }
+}
