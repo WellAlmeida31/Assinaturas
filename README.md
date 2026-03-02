@@ -147,7 +147,7 @@ awslocal secretsmanager create-secret --name sandbox/asaas/access_token --secret
 
 Caso não possua um token ASAAS é possivel testar a API usando o Wiremock configurado.
 
-- Execute o docker compose (O Wiremock é configurado automaticaente)
+- Execute o docker compose (O Wiremock é configurado automaticamente)
 
 Use a URL do Wiremock no application.yaml
 Descomente a URL:
