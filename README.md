@@ -6,6 +6,7 @@
 ![Spring](https://img.shields.io/badge/Open-Feign-red)
 ![Spring](https://img.shields.io/badge/Amazon-WebServices-orange)
 ![Spring](https://img.shields.io/badge/Docker-blue)
+![Spring](https://img.shields.io/badge/REDIS-red)
 
 ## 📌 Assinaturas — Teste Técnico Globo
 
@@ -47,6 +48,7 @@ Essa aplicação implementa um sistema de assinaturas onde:
 | Lombok           | Redução de boilerplate  |
 | RabbitMQ         | Mensageria              |
 | Open Feign       | Rest Client             |
+| REDIS            | Cache                   |
 
 ## Pré-Requisitos
 
