@@ -1,5 +1,7 @@
 package com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,9 +51,11 @@ public class SignatureDbo {
     @Column(name = "retry_payment")
     private Integer retryPayment;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "signatureDbo", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserDbo userDbo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "signatureDbo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PaymentsDbo> payments = new ArrayList<>();
 

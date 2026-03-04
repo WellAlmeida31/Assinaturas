@@ -7,6 +7,7 @@ import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.CreditCardService;
 import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
 import com.wellsoft.globo.assinaturas.domain.service.SignatureService;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.CreatePaymentResponse;
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.PaymentResponse;
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.TokenizeCreditCardResponse;
@@ -32,16 +33,13 @@ class CreateSignatureAndPaymentUseCaseTest {
     private SignatureService signatureService;
 
     @Mock
-    private PlanValueProvider planValueProvider;
-
-    @Mock
     private CreditCardService creditCardService;
 
     @Mock
     private RecurrenceService recurrenceService;
 
     @Mock
-    private UserProvider userProvider;
+    private UserService userService;
 
     @InjectMocks
     private CreateSignatureAndPaymentUseCase useCase;
@@ -95,9 +93,9 @@ class CreateSignatureAndPaymentUseCaseTest {
         var paymentDbo = new PaymentsDbo();
         var creditCardDbo = new CreditCardDbo();
 
-        when(userProvider.findUserByIdentifier("user-123")).thenReturn(user);
+        when(userService.findUserByIdentifier("user-123")).thenReturn(user);
         when(signatureService.createInitialSignature(request)).thenReturn(signature);
-        when(planValueProvider.getPlanValue(request.plan())).thenReturn(planValue);
+        when(signatureService.getPlanValue(request.plan())).thenReturn(planValue);
         when(signatureService.createPaymentInAsaas(any(), any(), any(), any()))
                 .thenReturn(createPaymentResponse);
         when(signatureService.tokenizedCreditCard(any()))
@@ -128,7 +126,7 @@ class CreateSignatureAndPaymentUseCaseTest {
 
         user.setSignatureDbo(new SignatureDbo());
 
-        when(userProvider.findUserByIdentifier("user-123"))
+        when(userService.findUserByIdentifier("user-123"))
                 .thenReturn(user);
 
         assertThrows(AlreadySubscription.class,
@@ -150,9 +148,9 @@ class CreateSignatureAndPaymentUseCaseTest {
         var paymentResponse = new PaymentResponse();
         paymentResponse.status = PaymentStatus.PENDING;
 
-        when(userProvider.findUserByIdentifier("user-123")).thenReturn(user);
+        when(userService.findUserByIdentifier("user-123")).thenReturn(user);
         when(signatureService.createInitialSignature(request)).thenReturn(signature);
-        when(planValueProvider.getPlanValue(request.plan())).thenReturn(new BigDecimal("59.90"));
+        when(signatureService.getPlanValue(request.plan())).thenReturn(new BigDecimal("59.90"));
         when(signatureService.createPaymentInAsaas(any(), any(), any(), any()))
                 .thenReturn(createPaymentResponse);
         when(signatureService.tokenizedCreditCard(any()))

@@ -1,6 +1,7 @@
 package com.wellsoft.globo.assinaturas.domain.service;
 
 import com.wellsoft.globo.assinaturas.domain.provider.PaymentProvider;
+import com.wellsoft.globo.assinaturas.domain.provider.PlanValueProvider;
 import com.wellsoft.globo.assinaturas.domain.provider.SignatureProvider;
 import com.wellsoft.globo.assinaturas.infrastructure.client.AsaasPaymentClient;
 import com.wellsoft.globo.assinaturas.infrastructure.client.request.PayCreditCardRequest;
@@ -11,12 +12,14 @@ import com.wellsoft.globo.assinaturas.infrastructure.client.response.PaymentResp
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.TokenizeCreditCardResponse;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.BillingType;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.PaymentsDbo;
+import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.Plan;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.SignatureDbo;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.PaymentMapper;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.SignatureMapper;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.SignatureRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,11 +30,13 @@ import java.math.BigDecimal;
 public class SignatureService {
 
     private final SignatureProvider signatureProvider;
+    private final PlanValueProvider planValueProvider;
     private final PaymentProvider paymentProvider;
     private final AsaasPaymentClient paymentClient;
     private final SignatureMapper signatureMapper;
     private final PaymentMapper paymentMapper;
 
+    @CacheEvict(value = "usersByIdentifier", key = "#dto.identifier")
     public SignatureDbo createInitialSignature(SignatureRequestDto dto){
         log.info("Creating Signature by Identifier: {}", dto.identifier());
         return signatureProvider.createSignature(signatureMapper.toSignatureDbo(dto));
@@ -45,6 +50,11 @@ public class SignatureService {
                 .dueDate(dueDate)
                 .value(value)
                 .build());
+    }
+
+    public BigDecimal getPlanValue(Plan plan){
+        log.info("Get plan value for: {}", plan.name());
+        return planValueProvider.getPlanValue(plan);
     }
 
     public PaymentsDbo savePayment(PaymentResponse paymentResponse){

@@ -16,7 +16,7 @@ public class CreatePaymentResponse {
     public BigDecimal netValue;
     public String billingType;
     public LocalDate confirmedDate;
-    public Object creditCard;
+    public String creditCard;
     public PaymentStatus status;
     public String dueDate;
     public String originalDueDate;

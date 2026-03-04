@@ -3,6 +3,7 @@ package com.wellsoft.globo.assinaturas.application.usecase;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
 import com.wellsoft.globo.assinaturas.domain.service.SignatureService;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.CreatePaymentResponse;
 import com.wellsoft.globo.assinaturas.infrastructure.client.response.PaymentResponse;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.*;
@@ -21,10 +22,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ExecutePaymentRecurrenceSignatureTest {
+class ExecutePaymentRecurrenceSignatureUseCaseTest {
 
     @Mock
-    private UserProvider userProvider;
+    private UserService userService;
 
     @Mock
     private SignatureService signatureService;
@@ -33,7 +34,7 @@ class ExecutePaymentRecurrenceSignatureTest {
     private RecurrenceService recurrenceService;
 
     @InjectMocks
-    private ExecutePaymentRecurrenceSignature useCase;
+    private ExecutePaymentRecurrenceSignatureUseCase useCase;
 
     private UserDbo user;
     private SignatureDbo signature;
@@ -71,7 +72,7 @@ class ExecutePaymentRecurrenceSignatureTest {
         var paymentResponse = new PaymentResponse();
         paymentResponse.status = PaymentStatus.CONFIRMED;
 
-        when(userProvider.findUserByIdentifier("user-123"))
+        when(userService.findUserByIdentifier("user-123"))
                 .thenReturn(user);
 
         when(signatureService.createPaymentInAsaas(any(), any(), any(), any()))
@@ -105,7 +106,7 @@ class ExecutePaymentRecurrenceSignatureTest {
         var paymentResponse = new PaymentResponse();
         paymentResponse.status = PaymentStatus.PENDING;
 
-        when(userProvider.findUserByIdentifier("user-123"))
+        when(userService.findUserByIdentifier("user-123"))
                 .thenReturn(user);
 
         when(signatureService.createPaymentInAsaas(any(), any(), any(), any()))
@@ -138,7 +139,7 @@ class ExecutePaymentRecurrenceSignatureTest {
         var paymentResponse = new PaymentResponse();
         paymentResponse.status = PaymentStatus.PENDING;
 
-        when(userProvider.findUserByIdentifier("user-123"))
+        when(userService.findUserByIdentifier("user-123"))
                 .thenReturn(user);
 
         when(signatureService.createPaymentInAsaas(any(), any(), any(), any()))

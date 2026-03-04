@@ -1,6 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.scheduler.job;
 
-import com.wellsoft.globo.assinaturas.application.usecase.ExecuteSubscriptionSuspension;
+import com.wellsoft.globo.assinaturas.application.usecase.ExecuteSubscriptionSuspensionUseCase;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class CancelSignatureJob implements Job {
 
     @Autowired
-    ExecuteSubscriptionSuspension executeSubscriptionSuspension;
+    ExecuteSubscriptionSuspensionUseCase executeSubscriptionSuspensionUseCase;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -26,6 +26,6 @@ public class CancelSignatureJob implements Job {
 
         String userIdentifier = dataMap.getString("userIdentifier");
 
-        executeSubscriptionSuspension.apply(userIdentifier);
+        executeSubscriptionSuspensionUseCase.apply(userIdentifier);
     }
 }

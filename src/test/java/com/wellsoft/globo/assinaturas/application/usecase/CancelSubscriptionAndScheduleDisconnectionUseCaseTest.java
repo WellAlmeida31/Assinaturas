@@ -3,6 +3,7 @@ package com.wellsoft.globo.assinaturas.application.usecase;
 import com.wellsoft.globo.assinaturas.application.dto.CancelSignatureDto;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.SignatureDbo;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.UserDbo;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,16 +21,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CancelSubscriptionAndScheduleDisconnectionTest {
+class CancelSubscriptionAndScheduleDisconnectionUseCaseTest {
 
     @Mock
-    private UserProvider userProvider;
+    private UserService userService;
 
     @Mock
     private RecurrenceService recurrenceService;
 
     @InjectMocks
-    private CancelSubscriptionAndScheduleDisconnection useCase;
+    private CancelSubscriptionAndScheduleDisconnectionUseCase useCase;
 
     private final String identifier = "user-123";
 
@@ -47,7 +48,7 @@ class CancelSubscriptionAndScheduleDisconnectionTest {
 
     @Test
     void shouldCancelSubscriptionAndScheduleDisconnectionSuccessfully() {
-        when(userProvider.findUserByIdentifier(identifier)).thenReturn(user);
+        when(userService.findUserByIdentifier(identifier)).thenReturn(user);
 
         useCase.apply(identifier);
 
@@ -66,7 +67,7 @@ class CancelSubscriptionAndScheduleDisconnectionTest {
     @Test
     void shouldThrowExceptionWhenUserHasNoSignature() {
         user.setSignatureDbo(null);
-        when(userProvider.findUserByIdentifier(identifier)).thenReturn(user);
+        when(userService.findUserByIdentifier(identifier)).thenReturn(user);
 
         EntityNotFoundException exception = assertThrows(
                 EntityNotFoundException.class,

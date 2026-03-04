@@ -1,7 +1,6 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
 import com.wellsoft.globo.assinaturas.domain.exception.ExistentUserException;
-import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.UserMapper;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.UserRequestDto;
@@ -16,16 +15,15 @@ import org.springframework.stereotype.Component;
 public class CreateUserUseCase {
 
     private final UserService userService;
-    private final UserProvider userProvider;
     private final UserMapper userMapper;
 
     public UserCreateResponseDto createUser(UserRequestDto userRequestDto){
-        var existUser = userProvider.findUserByCpf(userRequestDto.cpf()).isPresent();
+        var existUser = userService.findUserByCpf(userRequestDto.cpf()).isPresent();
         if(existUser){
             throw new ExistentUserException("User already exist");
         }
         var asaasUser = userService.createAsaasUser(userRequestDto);
-        var user = userProvider.saveUser(userMapper.toUserDbo(asaasUser));
+        var user = userService.saveUser(userMapper.toUserDbo(asaasUser));
         log.info("Created User with Identifier: {}", user.getUserIdentifier());
         return userMapper.toUserCreateDto(user);
     }

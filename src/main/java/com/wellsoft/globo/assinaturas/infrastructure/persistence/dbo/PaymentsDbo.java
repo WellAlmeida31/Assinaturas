@@ -1,5 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -65,6 +66,7 @@ public class PaymentsDbo {
     private String transactionReceiptUrl;
 
     @Setter
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "signature_id")
     private SignatureDbo signatureDbo;

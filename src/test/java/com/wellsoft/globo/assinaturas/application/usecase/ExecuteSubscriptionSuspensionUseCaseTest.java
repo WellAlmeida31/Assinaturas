@@ -1,6 +1,7 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.SignatureDbo;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.SignatureStatus;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.UserDbo;
@@ -15,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ExecuteSubscriptionSuspensionTest {
+class ExecuteSubscriptionSuspensionUseCaseTest {
 
     @Mock
-    private UserProvider userProvider;
+    private UserService userService;
 
     @InjectMocks
-    private ExecuteSubscriptionSuspension useCase;
+    private ExecuteSubscriptionSuspensionUseCase useCase;
 
     private UserDbo user;
     private SignatureDbo signature;
@@ -41,14 +42,14 @@ class ExecuteSubscriptionSuspensionTest {
     @Test
     void shouldCancelSubscription() {
 
-        when(userProvider.findUserByIdentifier("user-123"))
+        when(userService.findUserByIdentifier("user-123"))
                 .thenReturn(user);
 
         useCase.apply("user-123");
 
         assertEquals(SignatureStatus.CANCELADA, signature.getStatus());
 
-        verify(userProvider, times(1))
+        verify(userService, times(1))
                 .findUserByIdentifier("user-123");
     }
 

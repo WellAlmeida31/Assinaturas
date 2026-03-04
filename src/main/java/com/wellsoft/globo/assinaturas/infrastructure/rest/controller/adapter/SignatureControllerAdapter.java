@@ -1,6 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.rest.controller.adapter;
 
-import com.wellsoft.globo.assinaturas.application.usecase.CancelSubscriptionAndScheduleDisconnection;
+import com.wellsoft.globo.assinaturas.application.usecase.CancelSubscriptionAndScheduleDisconnectionUseCase;
 import com.wellsoft.globo.assinaturas.application.usecase.CreateSignatureAndPaymentUseCase;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.port.SignatureController;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.SignatureRequestDto;
@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class SignatureControllerAdapter implements SignatureController {
 
     private final CreateSignatureAndPaymentUseCase createSignatureAndPaymentUseCase;
-    private final CancelSubscriptionAndScheduleDisconnection cancelSubscriptionAndScheduleDisconnection ;
+    private final CancelSubscriptionAndScheduleDisconnectionUseCase cancelSubscriptionAndScheduleDisconnectionUseCase;
 
     @Override
     public ResponseEntity<SignatureResponseDto> createSignatureToUser(SignatureRequestDto dto, UriComponentsBuilder uriBuilder) {
@@ -35,7 +35,7 @@ public class SignatureControllerAdapter implements SignatureController {
     @Override
     public ResponseEntity<Void> cancelSignatureToUser(String identifier) {
         log.info("Start delete signature to user, identifier: {}", identifier);
-        cancelSubscriptionAndScheduleDisconnection.apply(identifier);
+        cancelSubscriptionAndScheduleDisconnectionUseCase.apply(identifier);
         return ResponseEntity.noContent().build();
     }
 }

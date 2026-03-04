@@ -1,5 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -65,6 +66,7 @@ public class CreditCardDbo {
     private String creditCardBrand;
 
     @Setter
+    @JsonBackReference
     @OneToOne(mappedBy = "creditCardDbo", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserDbo userDbo;
 }

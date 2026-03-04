@@ -8,6 +8,7 @@ import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.UserDbo;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.UserMapper;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.request.UserRequestDto;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserCreateResponseDto;
+import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,9 +26,6 @@ class CreateUserUseCaseTest {
 
     @Mock
     private UserService userService;
-
-    @Mock
-    private UserProvider userProvider;
 
     @Mock
     private UserMapper userMapper;
@@ -59,7 +57,7 @@ class CreateUserUseCaseTest {
                 .userIdentifier("user-123")
                 .build();
 
-        when(userProvider.findUserByCpf(request.cpf()))
+        when(userService.findUserByCpf(request.cpf()))
                 .thenReturn(Optional.empty());
 
         when(userService.createAsaasUser(request))
@@ -68,7 +66,7 @@ class CreateUserUseCaseTest {
         when(userMapper.toUserDbo(asaasUser))
                 .thenReturn(userDbo);
 
-        when(userProvider.saveUser(userDbo))
+        when(userService.saveUser(userDbo))
                 .thenReturn(userDbo);
 
         when(userMapper.toUserCreateDto(userDbo))
@@ -80,20 +78,20 @@ class CreateUserUseCaseTest {
         assertEquals("user-123", response.userIdentifier());
 
         verify(userService, times(1)).createAsaasUser(request);
-        verify(userProvider, times(1)).saveUser(userDbo);
+        verify(userService, times(1)).saveUser(userDbo);
     }
 
     @Test
     void shouldThrowWhenUserAlreadyExists() {
 
-        when(userProvider.findUserByCpf(request.cpf()))
-                .thenReturn(Optional.of(new UserDbo()));
+        when(userService.findUserByCpf(request.cpf()))
+                .thenReturn(Optional.of(UserResponseDto.builder().build()));
 
         assertThrows(ExistentUserException.class,
                 () -> useCase.createUser(request));
 
         verify(userService, never()).createAsaasUser(any());
-        verify(userProvider, never()).saveUser(any());
+        verify(userService, never()).saveUser(any());
         verify(userMapper, never()).toUserDbo(any());
     }
 }

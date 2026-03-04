@@ -3,6 +3,7 @@ package com.wellsoft.globo.assinaturas.infrastructure.persistence.repository;
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.UserDbo;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

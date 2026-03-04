@@ -1,6 +1,7 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
 import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.UserDbo;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.mapper.UserMapper;
 import com.wellsoft.globo.assinaturas.infrastructure.rest.controller.response.UserResponseDto;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.*;
 class FindUserAndSignaturesAndCreditCardUseCaseTest {
 
     @Mock
-    private UserProvider userProvider;
+    private UserService userService;
 
     @Mock
     private UserMapper userMapper;
@@ -36,7 +37,7 @@ class FindUserAndSignaturesAndCreditCardUseCaseTest {
                 .userIdentifier(identifier)
                 .build();
 
-        when(userProvider.findUserByIdentifier(identifier))
+        when(userService.findUserByIdentifier(identifier))
                 .thenReturn(userDbo);
 
         when(userMapper.toUserDto(userDbo))
@@ -47,7 +48,7 @@ class FindUserAndSignaturesAndCreditCardUseCaseTest {
         assertNotNull(result);
         assertEquals(identifier, result.userIdentifier());
 
-        verify(userProvider, times(1))
+        verify(userService, times(1))
                 .findUserByIdentifier(identifier);
 
         verify(userMapper, times(1))
@@ -59,7 +60,7 @@ class FindUserAndSignaturesAndCreditCardUseCaseTest {
 
         var identifier = "user-123";
 
-        when(userProvider.findUserByIdentifier(identifier))
+        when(userService.findUserByIdentifier(identifier))
                 .thenThrow(new RuntimeException("User not found"));
 
         assertThrows(RuntimeException.class,

@@ -1,6 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.scheduler.job;
 
-import com.wellsoft.globo.assinaturas.application.usecase.ExecutePaymentRecurrenceSignature;
+import com.wellsoft.globo.assinaturas.application.usecase.ExecutePaymentRecurrenceSignatureUseCase;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 public class PaymentRecurrenceJob implements Job {
 
     @Autowired
-    ExecutePaymentRecurrenceSignature executePaymentRecurrenceSignature;
+    ExecutePaymentRecurrenceSignatureUseCase executePaymentRecurrenceSignatureUseCase;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -29,7 +29,7 @@ public class PaymentRecurrenceJob implements Job {
         String userIdentifier = dataMap.getString("userIdentifier");
         BigDecimal value = new BigDecimal(dataMap.getString("value"));
 
-        executePaymentRecurrenceSignature.apply(userIdentifier, value);
+        executePaymentRecurrenceSignatureUseCase.apply(userIdentifier, value);
     }
 
 }

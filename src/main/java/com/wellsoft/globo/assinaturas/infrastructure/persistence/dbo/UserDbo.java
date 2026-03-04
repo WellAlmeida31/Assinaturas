@@ -1,5 +1,6 @@
 package com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -77,11 +78,13 @@ public class UserDbo {
     private LocalDateTime createdAt;
 
     @Setter
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "credit_card_id", referencedColumnName = "id")
     private CreditCardDbo creditCardDbo;
 
     @Setter
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "signature_id", referencedColumnName = "id")
     private SignatureDbo signatureDbo;

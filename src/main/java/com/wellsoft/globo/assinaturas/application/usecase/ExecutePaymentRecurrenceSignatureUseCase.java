@@ -1,9 +1,9 @@
 package com.wellsoft.globo.assinaturas.application.usecase;
 
 import com.wellsoft.globo.assinaturas.application.dto.CreateRecurrenceDto;
-import com.wellsoft.globo.assinaturas.domain.provider.UserProvider;
 import com.wellsoft.globo.assinaturas.domain.service.RecurrenceService;
 import com.wellsoft.globo.assinaturas.domain.service.SignatureService;
+import com.wellsoft.globo.assinaturas.domain.service.UserService;
 import com.wellsoft.globo.assinaturas.infrastructure.client.request.PayCreditCardRequest;
 import com.wellsoft.globo.assinaturas.infrastructure.persistence.dbo.*;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ExecutePaymentRecurrenceSignature {
+public class ExecutePaymentRecurrenceSignatureUseCase {
 
-    private final UserProvider userProvider;
+    private final UserService userService;
     private final SignatureService signatureService;
     private final RecurrenceService recurrenceService;
 
@@ -29,7 +29,7 @@ public class ExecutePaymentRecurrenceSignature {
     public void apply(String userIdentifier, BigDecimal value){
         log.info("Execute Payment Recurrence Signature to User: {}", userIdentifier);
 
-        var user = userProvider.findUserByIdentifier(userIdentifier);
+        var user = userService.findUserByIdentifier(userIdentifier);
 
         var createPaymentResponse = signatureService.createPaymentInAsaas(user.getClientCustomerId(), BillingType.CREDIT_CARD, value, LocalDate.now().toString());
 
