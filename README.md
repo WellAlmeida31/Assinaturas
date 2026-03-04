@@ -56,11 +56,11 @@ Antes de começar, você precisará ter o Docker instalado em sua máquina.<br>
 
 ## Como Rodar
 
-É necessário que você execute o docker compose na raíz do projeto:
+É necessário que você execute o docker compose que está na pasta compose do projeto:
 `````
 docker-compose up -d
 `````
-Isso irá subir os serviços de Banco de Dados, RabbitMQ e LocalStack para Serviços AWS.<br>
+Isso irá subir os serviços já configurados de Banco de Dados, RabbitMQ, REDIS e LocalStack para Serviços AWS.<br>
 
 # [Swagger](http://localhost:8080/swagger-ui/index.html)
 `````
